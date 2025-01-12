@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import TheContainer from '@/components/layouts/TheContainer.vue';
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
+  <main class="w-full">
+    <TheContainer></TheContainer>
   </main>
 </template>
