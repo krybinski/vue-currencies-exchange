@@ -1,0 +1,80 @@
+<script setup lang="ts">
+import { computed, useId } from 'vue';
+
+interface Props {
+  label?: string;
+  type?: string;
+  placeholder?: string;
+  disabled?: boolean;
+  required?: boolean;
+  error?: string;
+  id?: string;
+  min?: number;
+  max?: number;
+  value?: string | number;
+}
+
+interface Emits {
+  (e: 'input', event: Event): void;
+  (e: 'blur', event: FocusEvent): void;
+  (e: 'focus', event: FocusEvent): void;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  type: 'text',
+  placeholder: '',
+  disabled: false,
+  required: false,
+  id: '',
+  min: 0,
+  max: 1000000,
+  value: 0,
+});
+
+defineEmits<Emits>();
+
+const model = defineModel<string | number>();
+
+const id = computed(() => props.id || `input-${useId()}`);
+</script>
+
+<template>
+  <div class="input__wrapper">
+    <label v-if="label" :for="id" class="input__label">{{ label }}</label>
+    <input
+      v-model="model"
+      :id="id"
+      :type="type"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      :required="required"
+      :min="min"
+      :max="max"
+      :class="['input__field', { 'input__field--error': error }]"
+      @input="$emit('input', $event)"
+      @blur="$emit('blur', $event)"
+      @focus="$emit('focus', $event)"
+    />
+    <span v-if="error" class="input__error-message">{{ error }}</span>
+  </div>
+</template>
+
+<style scoped>
+.input__label {
+  @apply font-medium text-gray-900;
+}
+
+.input__field {
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5;
+  @apply focus:ring-blue-500 focus:border-blue-500;
+  @apply disabled:bg-gray-200 disabled:cursor-not-allowed;
+
+  &--error {
+    @apply border-red-500;
+  }
+}
+
+.input__error-message {
+  @apply text-red-500;
+}
+</style>
