@@ -11,7 +11,7 @@ import { RouterView } from 'vue-router';
 <style>
 html,
 body {
-  @apply h-full;
+  @apply h-full bg-blue-100;
 }
 
 #app {
