@@ -1,16 +1,18 @@
 import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
 import type { CurrencyRate } from '@/api/types/currency';
+import { formatMoney } from '@/utils/money.utils';
+import { DEFAULT_CURRENCY_CODE, DEFAULT_TARGET_CURRENCY_CODE } from '@/constants';
 
 export const useCurrencyStore = defineStore('currency', () => {
   const rates = ref<CurrencyRate[] | null>(null);
   const effectiveDate = ref<string | null>(null);
-  const sourceCurrency = ref('PLN');
-  const targetCurrency = ref('EUR');
+  const sourceCurrency = ref(DEFAULT_CURRENCY_CODE);
+  const targetCurrency = ref(DEFAULT_TARGET_CURRENCY_CODE);
   const sourceAmount = ref(0);
 
   const getRateForCurrency = computed(() => (currencyCode: string) => {
-    if (currencyCode === 'PLN') {
+    if (currencyCode === DEFAULT_CURRENCY_CODE) {
       return 1;
     }
 
@@ -41,17 +43,17 @@ export const useCurrencyStore = defineStore('currency', () => {
       return 0;
     }
 
-    if (sourceCurrency.value === 'PLN') {
-      return +(1 / toRate).toFixed(2);
+    if (sourceCurrency.value === DEFAULT_CURRENCY_CODE) {
+      return formatMoney(1 / toRate);
     }
 
-    if (targetCurrency.value === 'PLN') {
-      return +(1 * fromRate).toFixed(2);
+    if (targetCurrency.value === DEFAULT_CURRENCY_CODE) {
+      return formatMoney(1 * fromRate);
     }
 
     // Cross-rate
     const amountInBaseCurrency = 1 * fromRate;
-    return +(amountInBaseCurrency / toRate).toFixed(4);
+    return formatMoney(amountInBaseCurrency / toRate);
   });
 
   const convertedAmount = computed(() => {
@@ -66,19 +68,24 @@ export const useCurrencyStore = defineStore('currency', () => {
       return 0;
     }
 
-    if (sourceCurrency.value === 'PLN') {
-      return +(sourceAmount.value / toRate).toFixed(2);
+    if (sourceCurrency.value === DEFAULT_CURRENCY_CODE) {
+      return formatMoney(sourceAmount.value / toRate);
     }
 
-    if (targetCurrency.value === 'PLN') {
-      return +(sourceAmount.value * fromRate).toFixed(2);
+    if (targetCurrency.value === DEFAULT_CURRENCY_CODE) {
+      return formatMoney(sourceAmount.value * fromRate);
     }
 
     // Cross-rate
-    console.log(fromRate, toRate);
     const amountInBaseCurrency = sourceAmount.value * fromRate;
-    return +(amountInBaseCurrency / toRate).toFixed(2);
+    return formatMoney(amountInBaseCurrency / toRate);
   });
+
+  function switchCurrencies() {
+    const temp = sourceCurrency.value;
+    sourceCurrency.value = targetCurrency.value;
+    targetCurrency.value = temp;
+  }
 
   return {
     rates,
@@ -91,5 +98,6 @@ export const useCurrencyStore = defineStore('currency', () => {
     sourceExchangeRate,
     getRateForCurrency,
     convertedAmount,
+    switchCurrencies,
   };
 });
