@@ -1,7 +1,7 @@
 import { isValidDateFormat } from '@/utils/date.utils';
 import { getErrorMessage } from '@/utils/http.utils';
 import { apiClient } from '../client';
-import type { CurrencyResponse } from '../types/currency';
+import type { CurrencyResponse } from '../types';
 
 class CurrencyApiService {
   private readonly baseUrl = '/exchangerates/tables/A';

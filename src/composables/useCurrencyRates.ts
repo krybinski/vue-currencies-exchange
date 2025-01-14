@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { currencyApi } from '@/api/services/currency.service';
-import type { CurrencyResponse } from '@/api/types/currency';
+import type { CurrencyResponse } from '@/api/types';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
 import { useCurrencyStore } from '@/stores/currency';
 import { useFetch } from './useFetch';

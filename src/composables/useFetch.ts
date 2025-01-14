@@ -1,10 +1,10 @@
-import { ref } from 'vue';
+import { ref, shallowRef } from 'vue';
 import { getErrorMessage } from '@/utils/http.utils';
 
 export function useFetch<T>() {
   const data = ref<T | null>(null);
-  const fetchError = ref<string | null>(null);
-  const loading = ref(false);
+  const fetchError = shallowRef<string | null>(null);
+  const loading = shallowRef(false);
 
   const fetchHandler = async (fetchFunction: () => Promise<T>) => {
     try {

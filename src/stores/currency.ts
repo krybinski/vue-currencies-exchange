@@ -1,32 +1,29 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-import type { CurrencyRate } from '@/api/types/currency';
+import { ref, computed, shallowRef } from 'vue';
+import type { CurrencyRate } from '@/api/types';
 import { DEFAULT_CURRENCY_CODE, DEFAULT_TARGET_CURRENCY_CODE } from '@/constants';
+import type { SelectOption } from '@/types';
 import { formatMoney } from '@/utils/money.utils';
 
 export const useCurrencyStore = defineStore(
   'currency',
   () => {
     const rates = ref<CurrencyRate[] | null>(null);
-    const sourceCurrency = ref(DEFAULT_CURRENCY_CODE);
-    const targetCurrency = ref(DEFAULT_TARGET_CURRENCY_CODE);
-    const sourceAmount = ref(0);
+    const sourceCurrency = shallowRef(DEFAULT_CURRENCY_CODE);
+    const targetCurrency = shallowRef(DEFAULT_TARGET_CURRENCY_CODE);
+    const sourceAmount = shallowRef(0);
 
-    const ratesAvailable = computed(() => {
-      return rates.value !== null;
-    });
+    const ratesAvailable = computed(() => rates.value !== null);
 
     const currencyCodes = computed(() => {
       return (rates.value?.map((rate) => rate.code) || []).sort((a, b) => a.localeCompare(b)) || [];
     });
 
-    const currencyCodeOptions = computed(() => {
+    const currencyCodeOptions = computed<SelectOption[]>(() => {
       return currencyCodes.value.map((code) => ({ label: code, value: code }));
     });
 
-    const isSameCurrency = computed(() => {
-      return sourceCurrency.value === targetCurrency.value;
-    });
+    const isSameCurrency = computed(() => sourceCurrency.value === targetCurrency.value);
 
     const sourceExchangeRate = computed(() => calculateExchangeRate(1));
 

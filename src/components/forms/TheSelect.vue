@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { computed, useId } from 'vue';
-
-interface Option {
-  label: string;
-  value: string | number;
-}
+import type { SelectOption } from '@/types';
 
 interface Props {
   label?: string;
@@ -13,7 +9,7 @@ interface Props {
   required?: boolean;
   error?: string;
   id?: string;
-  options: Option[];
+  options: SelectOption[];
   fullWidth?: boolean;
 }
 

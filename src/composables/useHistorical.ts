@@ -1,7 +1,7 @@
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { shallowRef } from 'vue';
 import { currencyApi } from '@/api/services/currency.service';
-import type { CurrencyResponse } from '@/api/types/currency';
+import type { CurrencyResponse } from '@/api/types';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
 import { useCurrencyStore } from '@/stores/currency';
 import { useFetch } from './useFetch';
@@ -12,7 +12,7 @@ export function useHistorical() {
 
   const { data, fetchError, loading, fetchHandler } = useFetch<CurrencyResponse>();
 
-  const historicalDate = ref<Date>(new Date());
+  const historicalDate = shallowRef<Date>(new Date());
 
   async function fetchRatesByDate(date: string) {
     await fetchHandler(() => currencyApi.getCurrentRatesByDate(date));
