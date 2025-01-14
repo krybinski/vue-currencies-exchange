@@ -19,7 +19,7 @@ const { switchCurrencies } = currencyStore;
   <CardDivided>
     <template #top>
       <CurrencySelect v-model="sourceCurrency" />
-      <TheInput v-model="sourceAmount" type="number" class="min-w-28" />
+      <TheInput v-model="sourceAmount" class="min-w-28" />
     </template>
 
     <template #divider>
@@ -28,7 +28,7 @@ const { switchCurrencies } = currencyStore;
 
     <template #bottom>
       <CurrencySelect v-model="targetCurrency" />
-      <TheInput v-model="convertedAmount" type="number" disabled class="min-w-28" />
+      <TheInput v-model="convertedAmount" disabled class="min-w-28" />
     </template>
   </CardDivided>
 

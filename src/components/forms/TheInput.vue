@@ -3,32 +3,22 @@ import { computed, useId } from 'vue';
 
 interface Props {
   label?: string;
-  type?: string;
-  placeholder?: string;
   disabled?: boolean;
-  required?: boolean;
   error?: string;
   id?: string;
   min?: number;
   max?: number;
-  value?: string | number;
 }
 
 interface Emits {
-  (e: 'input', event: Event): void;
   (e: 'blur', event: FocusEvent): void;
-  (e: 'focus', event: FocusEvent): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  type: 'text',
-  placeholder: '',
   disabled: false,
-  required: false,
   id: '',
   min: 0,
   max: 1000000,
-  value: 0,
 });
 
 const emit = defineEmits<Emits>();
@@ -37,7 +27,7 @@ const model = defineModel<string | number>();
 
 const id = computed(() => props.id || `input-${useId()}`);
 
-function handleNumberInput() {
+function handleBlur(event: FocusEvent) {
   if (model.value === '' || model.value === undefined) {
     model.value = 0;
   }
@@ -49,12 +39,6 @@ function handleNumberInput() {
   if (props.max !== undefined && +model.value > props.max) {
     model.value = props.max;
   }
-}
-
-function handleBlur(event: FocusEvent) {
-  if (props.type === 'number') {
-    handleNumberInput();
-  }
 
   emit('blur', event);
 }
@@ -65,17 +49,13 @@ function handleBlur(event: FocusEvent) {
     <label v-if="label" :for="id" class="input__label">{{ label }}</label>
     <input
       v-model="model"
+      type="number"
       :id="id"
-      :type="type"
-      :placeholder="placeholder"
       :disabled="disabled"
-      :required="required"
       :min="min"
       :max="max"
       :class="['input__field', { 'input__field--error': error }]"
-      @input="$emit('input', $event)"
       @blur="handleBlur"
-      @focus="$emit('focus', $event)"
     />
     <span v-if="error" class="input__error-message">{{ error }}</span>
   </div>
