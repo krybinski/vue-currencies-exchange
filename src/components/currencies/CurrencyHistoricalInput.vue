@@ -22,7 +22,7 @@ const { historicalDate, fetchError, disabledAfterToday, changeDate } = useHistor
 
 <style scoped>
 :deep(.dp__input) {
-  @apply rounded-lg border-gray-200 text-center font-sans font-bold;
+  @apply rounded-lg border-gray-200 text-center font-sans font-bold shadow-sm;
 }
 
 :deep(.dp__cell_inner),

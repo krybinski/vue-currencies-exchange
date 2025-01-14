@@ -11,7 +11,9 @@ defineSlots<Slots>();
 </script>
 
 <template>
-  <div class="flex flex-col items-center justify-center rounded-lg border-gray-200 bg-white p-4">
+  <div
+    class="flex flex-col items-center justify-center rounded-lg border-gray-200 bg-white p-4 shadow-md"
+  >
     <div class="flex w-full gap-4">
       <slot name="top" />
     </div>
