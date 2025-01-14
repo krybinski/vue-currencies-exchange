@@ -14,6 +14,7 @@ interface Props {
   error?: string;
   id?: string;
   options: Option[];
+  fullWidth?: boolean;
 }
 
 interface Emits {
@@ -28,6 +29,7 @@ const props = withDefaults(defineProps<Props>(), {
   required: false,
   id: '',
   options: () => [],
+  fullWidth: false,
 });
 
 defineEmits<Emits>();
@@ -38,7 +40,7 @@ const id = computed(() => props.id || `select-${useId()}`);
 </script>
 
 <template>
-  <div class="select__wrapper">
+  <div :class="['select__wrapper', { 'select__wrapper--full-width': fullWidth }]">
     <label v-if="label" :for="id" class="select__label">{{ label }}</label>
     <select
       v-model="model"
@@ -60,6 +62,10 @@ const id = computed(() => props.id || `select-${useId()}`);
 </template>
 
 <style scoped>
+.select__wrapper--full-width {
+  @apply w-full;
+}
+
 .select__label {
   @apply font-medium text-gray-900;
 }

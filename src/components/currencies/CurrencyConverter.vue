@@ -3,14 +3,13 @@ import { storeToRefs } from 'pinia';
 import { useCurrencyStore } from '@/stores/currency';
 import CardDivided from '../common/CardDivided.vue';
 import TheInput from '../forms/TheInput.vue';
-import TheSelect from '../forms/TheSelect.vue';
 import ConverterDetails from './ConverterDetails.vue';
 import ConverterSwitchButton from './ConverterSwitchButton.vue';
-import CurrencyFlag from './CurrencyFlag.vue';
+import CurrencySelect from './CurrencySelect.vue';
 
 const currencyStore = useCurrencyStore();
 
-const { currencyCodeOptions, sourceCurrency, sourceAmount, targetCurrency, convertedAmount } =
+const { sourceCurrency, sourceAmount, targetCurrency, convertedAmount } =
   storeToRefs(currencyStore);
 
 const { switchCurrencies } = currencyStore;
@@ -19,10 +18,7 @@ const { switchCurrencies } = currencyStore;
 <template>
   <CardDivided>
     <template #top>
-      <div class="flex items-center gap-3">
-        <CurrencyFlag :currency-code="sourceCurrency" />
-        <TheSelect v-model="sourceCurrency" :options="currencyCodeOptions" class="w-full" />
-      </div>
+      <CurrencySelect v-model="sourceCurrency" />
       <TheInput v-model="sourceAmount" type="number" class="min-w-28" />
     </template>
 
@@ -31,10 +27,7 @@ const { switchCurrencies } = currencyStore;
     </template>
 
     <template #bottom>
-      <div class="flex items-center gap-3">
-        <CurrencyFlag :currency-code="targetCurrency" />
-        <TheSelect v-model="targetCurrency" :options="currencyCodeOptions" class="w-full" />
-      </div>
+      <CurrencySelect v-model="targetCurrency" />
       <TheInput v-model="convertedAmount" type="number" disabled class="min-w-28" />
     </template>
   </CardDivided>
