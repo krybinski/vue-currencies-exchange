@@ -9,11 +9,6 @@ import { RouterView } from 'vue-router';
 </template>
 
 <style>
-html,
-body {
-  @apply h-full bg-blue-100;
-}
-
 #app {
   @apply min-h-screen;
 }

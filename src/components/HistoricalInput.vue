@@ -21,6 +21,16 @@ const { historicalDate, disabledAfterToday, changeDate } = useHistorical();
 
 <style scoped>
 :deep(.dp__input) {
-  @apply rounded-lg border-gray-200 text-center;
+  @apply rounded-lg border-gray-200 text-center font-sans font-bold;
+}
+
+:deep(.dp__cell_inner),
+:deep(.dp__calendar_header_item),
+:deep(.dp__month_year_wrap) {
+  @apply font-sans text-sm;
+}
+
+:deep(.dp--tp-wrap) {
+  display: none;
 }
 </style>
