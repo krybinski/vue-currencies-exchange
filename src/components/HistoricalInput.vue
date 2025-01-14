@@ -3,8 +3,9 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import { useHistorical } from '@/composables/useHistorical';
+import ErrorMessage from './common/ErrorMessage.vue';
 
-const { historicalDate, disabledAfterToday, changeDate } = useHistorical();
+const { historicalDate, fetchError, disabledAfterToday, changeDate } = useHistorical();
 </script>
 
 <template>
@@ -17,6 +18,7 @@ const { historicalDate, disabledAfterToday, changeDate } = useHistorical();
     :clearable="false"
     @update:model-value="changeDate"
   />
+  <ErrorMessage v-if="fetchError" :error="fetchError" class="mt-2" />
 </template>
 
 <style scoped>

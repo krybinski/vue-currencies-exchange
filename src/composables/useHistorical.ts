@@ -44,6 +44,8 @@ export function useHistorical() {
 
   return {
     historicalDate,
+    fetchError,
+    isLoading,
     disabledAfterToday,
     changeDate,
   };

@@ -1,10 +1,6 @@
 import { isAxiosError, type AxiosError } from 'axios';
 
 export function getErrorMessage(error: unknown, defaultError = ''): string {
-  if (error instanceof Error) {
-    return error.message;
-  }
-
   if (isAxiosError(error)) {
     const axiosError = error as AxiosError;
 
@@ -18,6 +14,10 @@ export function getErrorMessage(error: unknown, defaultError = ''): string {
     if (axiosError.request) {
       return 'No response received from server';
     }
+  }
+
+  if (error instanceof Error) {
+    return error.message;
   }
 
   return defaultError || 'An unknown error occurred';
