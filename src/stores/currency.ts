@@ -8,21 +8,12 @@ export const useCurrencyStore = defineStore(
   'currency',
   () => {
     const rates = ref<CurrencyRate[] | null>(null);
-    const effectiveDate = ref<string | null>(null);
     const sourceCurrency = ref(DEFAULT_CURRENCY_CODE);
     const targetCurrency = ref(DEFAULT_TARGET_CURRENCY_CODE);
     const sourceAmount = ref(0);
 
     const ratesAvailable = computed(() => {
       return rates.value !== null;
-    });
-
-    const getRateForCurrency = computed(() => (currencyCode: string) => {
-      if (currencyCode === DEFAULT_CURRENCY_CODE) {
-        return 1;
-      }
-
-      return rates.value?.find((rate) => rate.code === currencyCode)?.mid || 0;
     });
 
     const currencyCodes = computed(() => {
@@ -37,55 +28,42 @@ export const useCurrencyStore = defineStore(
       return sourceCurrency.value === targetCurrency.value;
     });
 
-    const sourceExchangeRate = computed(() => {
-      if (isSameCurrency.value) {
+    const sourceExchangeRate = computed(() => calculateExchangeRate(1));
+
+    const convertedAmount = computed(() => calculateExchangeRate(sourceAmount.value));
+
+    function getRateForCurrency(currencyCode: string) {
+      if (currencyCode === DEFAULT_CURRENCY_CODE) {
         return 1;
       }
 
-      const fromRate = getRateForCurrency.value(sourceCurrency.value);
-      const toRate = getRateForCurrency.value(targetCurrency.value);
+      return rates.value?.find((rate) => rate.code === currencyCode)?.mid || 0;
+    }
 
-      if (!fromRate || !toRate) {
-        return 0;
-      }
-
-      if (sourceCurrency.value === DEFAULT_CURRENCY_CODE) {
-        return formatMoney(1 / toRate);
-      }
-
-      if (targetCurrency.value === DEFAULT_CURRENCY_CODE) {
-        return formatMoney(1 * fromRate);
-      }
-
-      // Cross-rate
-      const amountInBaseCurrency = 1 * fromRate;
-      return formatMoney(amountInBaseCurrency / toRate);
-    });
-
-    const convertedAmount = computed(() => {
+    function calculateExchangeRate(amount: number) {
       if (isSameCurrency.value) {
-        return sourceAmount.value;
+        return amount;
       }
 
-      const fromRate = getRateForCurrency.value(sourceCurrency.value);
-      const toRate = getRateForCurrency.value(targetCurrency.value);
+      const fromRate = getRateForCurrency(sourceCurrency.value);
+      const toRate = getRateForCurrency(targetCurrency.value);
 
       if (!fromRate || !toRate) {
         return 0;
       }
 
       if (sourceCurrency.value === DEFAULT_CURRENCY_CODE) {
-        return formatMoney(sourceAmount.value / toRate);
+        return formatMoney(amount / toRate);
       }
 
       if (targetCurrency.value === DEFAULT_CURRENCY_CODE) {
-        return formatMoney(sourceAmount.value * fromRate);
+        return formatMoney(amount * fromRate);
       }
 
       // Cross-rate
-      const amountInBaseCurrency = sourceAmount.value * fromRate;
+      const amountInBaseCurrency = amount * fromRate;
       return formatMoney(amountInBaseCurrency / toRate);
-    });
+    }
 
     function switchCurrencies() {
       const temp = sourceCurrency.value;
@@ -96,15 +74,14 @@ export const useCurrencyStore = defineStore(
     return {
       rates,
       ratesAvailable,
-      effectiveDate,
       sourceCurrency,
       targetCurrency,
       sourceAmount,
       currencyCodes,
       currencyCodeOptions,
       sourceExchangeRate,
-      getRateForCurrency,
       convertedAmount,
+      getRateForCurrency,
       switchCurrencies,
     };
   },

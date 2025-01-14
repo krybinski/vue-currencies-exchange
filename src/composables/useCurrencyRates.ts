@@ -1,35 +1,27 @@
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
 import { currencyApi } from '@/api/services/currency.service';
+import type { CurrencyResponse } from '@/api/types/currency';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
 import { useCurrencyStore } from '@/stores/currency';
-import { getErrorMessage } from '@/utils/http.utils';
+import { useFetch } from './useFetch';
 
 export function useCurrencyRates() {
   const currencyStore = useCurrencyStore();
-  const { rates, effectiveDate } = storeToRefs(currencyStore);
-  const fetchError = ref<string | null>(null);
-  const isLoading = ref(false);
+  const { rates } = storeToRefs(currencyStore);
 
-  async function fetchRates() {
-    try {
-      fetchError.value = null;
-      isLoading.value = true;
+  const { data, fetchError, loading, fetchHandler } = useFetch<CurrencyResponse>();
 
-      const data = await currencyApi.getCurrentRates();
+  const fetchRates = async () => {
+    await fetchHandler(() => currencyApi.getCurrentRates());
 
-      rates.value = [...data.rates, DEFAULT_CURRENCY_RATE];
-      effectiveDate.value = data.effectiveDate;
-    } catch (e: unknown) {
-      fetchError.value = getErrorMessage(e);
-    } finally {
-      isLoading.value = false;
+    if (data.value) {
+      rates.value = [...data.value.rates, DEFAULT_CURRENCY_RATE];
     }
-  }
+  };
 
   return {
     fetchError,
-    isLoading,
+    loading,
     fetchRates,
   };
 }

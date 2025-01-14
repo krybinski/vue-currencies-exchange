@@ -1,31 +1,24 @@
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { currencyApi } from '@/api/services/currency.service';
+import type { CurrencyResponse } from '@/api/types/currency';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
 import { useCurrencyStore } from '@/stores/currency';
-import { getErrorMessage } from '@/utils/http.utils';
+import { useFetch } from './useFetch';
 
 export function useHistorical() {
   const currencyStore = useCurrencyStore();
-  const { rates, effectiveDate } = storeToRefs(currencyStore);
+  const { rates } = storeToRefs(currencyStore);
+
+  const { data, fetchError, loading, fetchHandler } = useFetch<CurrencyResponse>();
 
   const historicalDate = ref<Date>(new Date());
-  const fetchError = ref<string | null>(null);
-  const isLoading = ref(false);
 
   async function fetchRatesByDate(date: string) {
-    try {
-      fetchError.value = null;
-      isLoading.value = true;
+    await fetchHandler(() => currencyApi.getCurrentRatesByDate(date));
 
-      const data = await currencyApi.getCurrentRatesByDate(date);
-
-      rates.value = [...data.rates, DEFAULT_CURRENCY_RATE];
-      effectiveDate.value = data.effectiveDate;
-    } catch (e: unknown) {
-      fetchError.value = getErrorMessage(e);
-    } finally {
-      isLoading.value = false;
+    if (data.value) {
+      rates.value = [...data.value.rates, DEFAULT_CURRENCY_RATE];
     }
   }
 
@@ -45,7 +38,7 @@ export function useHistorical() {
   return {
     historicalDate,
     fetchError,
-    isLoading,
+    loading,
     disabledAfterToday,
     changeDate,
   };
