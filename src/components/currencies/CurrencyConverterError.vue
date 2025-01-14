@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useCurrencyRates } from '@/composables/useCurrencyRates';
-import ErrorMessage from './common/ErrorMessage.vue';
 import { useCurrencyRatesAvailable } from '@/composables/useCurrencyRatesAvailable';
+import ErrorMessage from '../common/ErrorMessage.vue';
 
 const { applyOfflineRates } = useCurrencyRatesAvailable();
 

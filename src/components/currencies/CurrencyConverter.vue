@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { useCurrencyStore } from '@/stores/currency';
 import { storeToRefs } from 'pinia';
-import TheInput from './forms/TheInput.vue';
-import TheSelect from './forms/TheSelect.vue';
+import CardDivided from '../common/CardDivided.vue';
+import TheInput from '../forms/TheInput.vue';
+import TheSelect from '../forms/TheSelect.vue';
 import ConverterDetails from './ConverterDetails.vue';
 import ConverterSwitchButton from './ConverterSwitchButton.vue';
-import CardDivided from './CardDivided.vue';
 
 const currencyStore = useCurrencyStore();
 

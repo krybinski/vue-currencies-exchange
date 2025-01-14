@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useCurrencyRates } from '@/composables/useCurrencyRates';
-import TheLoader from './common/TheLoader.vue';
+import { useCurrencyRatesAvailable } from '@/composables/useCurrencyRatesAvailable';
+import TheLoader from '../common/TheLoader.vue';
 import CurrencyConverter from './CurrencyConverter.vue';
 import CurrencyConverterError from './CurrencyConverterError.vue';
-import { useCurrencyRatesAvailable } from '@/composables/useCurrencyRatesAvailable';
 
 const { isLoading, fetchRates } = useCurrencyRates();
 const { showConverter } = useCurrencyRatesAvailable();

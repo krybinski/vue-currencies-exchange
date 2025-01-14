@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import TheDivider from './common/TheDivider.vue';
+import TheDivider from './TheDivider.vue';
 </script>
 
 <template>

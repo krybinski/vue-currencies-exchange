@@ -3,7 +3,7 @@ import '@vuepic/vue-datepicker/dist/main.css';
 
 import VueDatePicker from '@vuepic/vue-datepicker';
 import { useHistorical } from '@/composables/useHistorical';
-import ErrorMessage from './common/ErrorMessage.vue';
+import ErrorMessage from '../common/ErrorMessage.vue';
 
 const { historicalDate, fetchError, disabledAfterToday, changeDate } = useHistorical();
 </script>

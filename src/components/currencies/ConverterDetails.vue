@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useCurrencyStore } from '@/stores/currency';
-import HistoricalInput from './HistoricalInput.vue';
+import CurrencyHistoricalInput from './CurrencyHistoricalInput.vue';
 
 const currencyStore = useCurrencyStore();
 const { sourceCurrency, targetCurrency, sourceExchangeRate } = storeToRefs(currencyStore);
@@ -17,7 +17,7 @@ const { sourceCurrency, targetCurrency, sourceExchangeRate } = storeToRefs(curre
       <span>Effective Date</span>
     </div>
     <div class="w-44 mx-auto">
-      <HistoricalInput />
+      <CurrencyHistoricalInput />
     </div>
   </div>
 </template>
