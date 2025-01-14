@@ -87,9 +87,9 @@ function handleBlur(event: FocusEvent) {
 }
 
 .input__field {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5;
-  @apply focus:ring-blue-500 focus:border-blue-500;
-  @apply disabled:bg-gray-200 disabled:cursor-not-allowed;
+  @apply block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900;
+  @apply focus:border-blue-500 focus:ring-blue-500;
+  @apply disabled:cursor-not-allowed disabled:bg-gray-200;
 
   &--error {
     @apply border-red-500;

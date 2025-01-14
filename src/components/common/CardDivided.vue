@@ -3,15 +3,15 @@ import TheDivider from './TheDivider.vue';
 </script>
 
 <template>
-  <div class="bg-white rounded-lg p-4 flex flex-col items-center justify-center border-gray-200">
-    <div class="flex gap-4 w-full">
+  <div class="flex flex-col items-center justify-center rounded-lg border-gray-200 bg-white p-4">
+    <div class="flex w-full gap-4">
       <slot name="top" />
     </div>
-    <div class="relative w-full my-10">
+    <div class="relative my-10 w-full">
       <TheDivider />
       <slot name="divider" />
     </div>
-    <div class="flex gap-4 w-full">
+    <div class="flex w-full gap-4">
       <slot name="bottom" />
     </div>
   </div>

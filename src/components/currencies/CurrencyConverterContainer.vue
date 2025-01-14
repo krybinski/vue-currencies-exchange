@@ -13,10 +13,10 @@ onMounted(fetchRates);
 </script>
 
 <template>
-  <div class="w-full sm:w-3/4 md:w-1/2 lg:w-2/5 xl:w-1/3 2xl:w-1/4 mx-auto">
+  <div class="mx-auto w-full sm:w-3/4 md:w-1/2 lg:w-2/5 xl:w-1/3 2xl:w-1/4">
     <TheLoader :loading="isLoading" center />
     <div v-if="!isLoading">
-      <CurrencyConverterError class="text-center mt-2" />
+      <CurrencyConverterError class="mt-2 text-center" />
     </div>
     <div v-if="!isLoading && showConverter" class="mt-10">
       <CurrencyConverter />

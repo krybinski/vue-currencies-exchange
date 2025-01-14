@@ -13,10 +13,10 @@ const { sourceCurrency, targetCurrency, sourceExchangeRate } = storeToRefs(curre
     <div class="font-bold">
       1 {{ sourceCurrency }} = {{ sourceExchangeRate }} {{ targetCurrency }}
     </div>
-    <div class="text-sm text-gray-600 mt-4">
+    <div class="mt-4 text-sm text-gray-600">
       <span>Effective Date</span>
     </div>
-    <div class="w-44 mx-auto">
+    <div class="mx-auto w-44">
       <CurrencyHistoricalInput />
     </div>
   </div>

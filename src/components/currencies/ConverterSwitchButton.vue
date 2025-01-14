@@ -8,7 +8,7 @@ defineEmits<Emits>();
 
 <template>
   <button
-    class="rounded-full w-10 h-10 bg-blue-500 p-2 text-white hover:bg-blue-600 transition-colors absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+    class="absolute left-1/2 top-1/2 h-10 w-10 -translate-x-1/2 -translate-y-1/2 transform rounded-full bg-blue-500 p-2 text-white transition-colors hover:bg-blue-600"
     @click="$emit('click')"
   >
     <span class="text-lg leading-none">⇅</span>
