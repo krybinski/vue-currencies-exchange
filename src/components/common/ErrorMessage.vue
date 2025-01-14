@@ -7,7 +7,7 @@ defineProps<Props>();
 </script>
 
 <template>
-  <div class="text-red-500">{{ error }}</div>
+  <div class="text-red-500 text-sm">{{ error }}</div>
 </template>
 
 <style scoped></style>

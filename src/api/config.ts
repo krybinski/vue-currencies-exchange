@@ -3,5 +3,4 @@ export const API_CONFIG = {
   DEFAULT_HEADERS: {
     Accept: 'application/json',
   },
-  MAX_RETRIES: 5,
 };

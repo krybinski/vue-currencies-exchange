@@ -8,7 +8,7 @@ import { DEFAULT_CURRENCY_RATE } from '@/constants';
 export function useCurrencyConverter() {
   const currencyStore = useCurrencyStore();
   const { rates, effectiveDate } = storeToRefs(currencyStore);
-  const fetchError = ref<string | null>('');
+  const fetchError = ref<string | null>(null);
   const isLoading = ref(false);
 
   async function fetchRates() {
