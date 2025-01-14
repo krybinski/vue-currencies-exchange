@@ -27,10 +27,27 @@ export function useCurrencyConverter() {
     }
   }
 
+  async function fetchRatesByDate(date: string) {
+    try {
+      fetchError.value = '';
+      isLoading.value = true;
+
+      const data = await currencyApi.getCurrentRatesByDate(date);
+
+      rates.value = [...data.rates, DEFAULT_CURRENCY_RATE];
+      effectiveDate.value = data.effectiveDate;
+    } catch (e: unknown) {
+      fetchError.value = getErrorMessage(e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
   onMounted(fetchRates);
 
   return {
     fetchError,
     isLoading,
+    fetchRatesByDate,
   };
 }

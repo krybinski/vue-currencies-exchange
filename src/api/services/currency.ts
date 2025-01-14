@@ -15,6 +15,26 @@ class CurrencyApiService {
       throw new Error(getErrorMessage(error));
     }
   }
+
+  public async getCurrentRatesByDate(date: string): Promise<CurrencyResponse> {
+    if (!this.isValidDateFormat(date)) {
+      throw new Error('Invalid date format. Please use YYYY-MM-DD');
+    }
+
+    const url = `${this.baseUrl}/${date}`;
+
+    try {
+      const response = await apiClient.get<CurrencyResponse[]>(url);
+      return response.data[0];
+    } catch (error: unknown) {
+      throw new Error(getErrorMessage(error));
+    }
+  }
+
+  private isValidDateFormat(date: string): boolean {
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    return dateRegex.test(date);
+  }
 }
 
 export const currencyApi = new CurrencyApiService();

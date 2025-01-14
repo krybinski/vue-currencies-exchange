@@ -31,11 +31,33 @@ const props = withDefaults(defineProps<Props>(), {
   value: 0,
 });
 
-defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
 const model = defineModel<string | number>();
 
 const id = computed(() => props.id || `input-${useId()}`);
+
+function handleNumberInput() {
+  if (model.value === '' || model.value === undefined) {
+    model.value = 0;
+  }
+
+  if (props.min !== undefined && +model.value < props.min) {
+    model.value = 0;
+  }
+
+  if (props.max !== undefined && +model.value > props.max) {
+    model.value = props.max;
+  }
+}
+
+function handleBlur(event: FocusEvent) {
+  if (props.type === 'number') {
+    handleNumberInput();
+  }
+
+  emit('blur', event);
+}
 </script>
 
 <template>
@@ -52,7 +74,7 @@ const id = computed(() => props.id || `input-${useId()}`);
       :max="max"
       :class="['input__field', { 'input__field--error': error }]"
       @input="$emit('input', $event)"
-      @blur="$emit('blur', $event)"
+      @blur="handleBlur"
       @focus="$emit('focus', $event)"
     />
     <span v-if="error" class="input__error-message">{{ error }}</span>

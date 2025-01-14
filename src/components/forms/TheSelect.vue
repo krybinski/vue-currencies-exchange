@@ -65,21 +65,20 @@ const id = computed(() => props.id || `select-${useId()}`);
 }
 
 .select__field {
-  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5;
+  @apply bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5 cursor-pointer;
   @apply focus:ring-blue-500 focus:border-blue-500;
   @apply disabled:bg-gray-200 disabled:cursor-not-allowed;
 
-  &--error {
-    @apply border-red-500;
-  }
-
-  /* Custom arrow styling */
   @apply appearance-none;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 0.5rem center;
   background-repeat: no-repeat;
   background-size: 1.5em 1.5em;
   padding-right: 2.5rem;
+
+  &--error {
+    @apply border-red-500;
+  }
 }
 
 .select__error-message {

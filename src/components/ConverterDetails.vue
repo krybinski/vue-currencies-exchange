@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { useCurrencyConverter } from '@/composables/useCurrencyConverter';
-import { useCurrencyStore } from '@/stores/currency';
 import { storeToRefs } from 'pinia';
-
-useCurrencyConverter();
+import { useCurrencyStore } from '@/stores/currency';
+import HistoricalInput from './HistoricalInput.vue';
 
 const currencyStore = useCurrencyStore();
-const { effectiveDate, sourceCurrency, targetCurrency, sourceExchangeRate } =
-  storeToRefs(currencyStore);
+const { sourceCurrency, targetCurrency, sourceExchangeRate } = storeToRefs(currencyStore);
 </script>
 
 <template>
@@ -16,8 +13,12 @@ const { effectiveDate, sourceCurrency, targetCurrency, sourceExchangeRate } =
     <div class="font-bold">
       1 {{ sourceCurrency }} = {{ sourceExchangeRate }} {{ targetCurrency }}
     </div>
-    <div class="text-sm text-gray-600 mt-4">Effective Date</div>
-    <div class="font-bold">{{ effectiveDate }}</div>
+    <div class="text-sm text-gray-600 mt-4">
+      <span>Effective Date</span>
+    </div>
+    <div class="w-40 mx-auto">
+      <HistoricalInput />
+    </div>
   </div>
 </template>
 
