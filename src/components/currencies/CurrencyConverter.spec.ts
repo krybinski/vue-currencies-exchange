@@ -3,18 +3,22 @@ import CardDivided from '@/components/common/CardDivided.vue';
 import TheInput from '@/components/forms/TheInput.vue';
 import { useCurrencyStore } from '@/stores/currency';
 import { createTestingPinia } from '@pinia/testing';
-import { mount } from '@vue/test-utils';
+import { flushPromises, mount } from '@vue/test-utils';
 import ConverterDetails from './ConverterDetails.vue';
 import ConverterSwitchButton from './ConverterSwitchButton.vue';
 import CurrencyConverter from './CurrencyConverter.vue';
 import CurrencySelect from './CurrencySelect.vue';
 
-vi.mock('./ConverterDetails.vue', () => ({
-  default: {
-    name: 'ConverterDetails',
-    template: '<div>Converter Details</div>',
-  },
-}));
+vi.mock('../ConverterDetails.vue', async () => {
+  const actual = await vi.importActual('../ConverterDetails.vue');
+  return {
+    default: {
+      name: 'ConverterDetails',
+      template: '<div>Converter Details</div>',
+      ...(actual as any)?.default,
+    },
+  };
+});
 
 vi.mock('./CurrencySelect.vue', () => ({
   default: {
@@ -49,13 +53,16 @@ describe('CurrencyConverter', () => {
     vi.clearAllMocks();
   });
 
-  it('renders properly with all components', () => {
+  it('renders properly with all components', async () => {
     const wrapper = createWrapper();
 
     expect(wrapper.findComponent(CardDivided).exists()).toBe(true);
     expect(wrapper.findAllComponents(CurrencySelect)).toHaveLength(2);
     expect(wrapper.findAllComponents(TheInput)).toHaveLength(2);
     expect(wrapper.findComponent(ConverterSwitchButton).exists()).toBe(true);
+
+    await flushPromises();
+
     expect(wrapper.findComponent(ConverterDetails).exists()).toBe(true);
   });
 
