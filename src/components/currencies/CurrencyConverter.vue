@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { defineAsyncComponent } from 'vue';
 import { useCurrencyStore } from '@/stores/currency';
 import CardDivided from '../common/CardDivided.vue';
 import TheInput from '../forms/TheInput.vue';
-import ConverterDetails from './ConverterDetails.vue';
 import ConverterSwitchButton from './ConverterSwitchButton.vue';
 import CurrencySelect from './CurrencySelect.vue';
+
+const ConverterDetails = defineAsyncComponent(() => import('./ConverterDetails.vue'));
 
 const currencyStore = useCurrencyStore();
 

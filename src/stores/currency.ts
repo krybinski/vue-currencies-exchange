@@ -1,9 +1,16 @@
-import { defineStore } from 'pinia';
+import { defineStore, type DefineStoreOptionsBase, type Store } from 'pinia';
 import { ref, computed, shallowRef } from 'vue';
 import type { CurrencyRate } from '@/api/types';
 import { DEFAULT_CURRENCY_CODE, DEFAULT_TARGET_CURRENCY_CODE } from '@/constants';
 import type { SelectOption } from '@/types';
 import { formatMoney } from '@/utils/money.utils';
+
+interface CurrencyStoreState {
+  rates: CurrencyRate[] | null;
+  sourceCurrency: string;
+  targetCurrency: string;
+  sourceAmount: number;
+}
 
 export const useCurrencyStore = defineStore(
   'currency',
@@ -84,5 +91,5 @@ export const useCurrencyStore = defineStore(
   },
   {
     persist: true,
-  },
+  } as DefineStoreOptionsBase<CurrencyStoreState, Store>,
 );

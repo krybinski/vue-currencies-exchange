@@ -1,8 +1,10 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { defineAsyncComponent } from 'vue';
 import { useCurrencyStore } from '@/stores/currency';
 import TheSelect from '../forms/TheSelect.vue';
-import CurrencyFlag from './CurrencyFlag.vue';
+
+const CurrencyFlag = defineAsyncComponent(() => import('./CurrencyFlag.vue'));
 
 const model = defineModel<string>({
   required: true,
