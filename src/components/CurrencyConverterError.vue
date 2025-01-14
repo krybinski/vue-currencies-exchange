@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
-import { useCurrencyConverter } from '@/composables/useCurrencyConverter';
+import { useCurrencyRates } from '@/composables/useCurrencyRates';
 import ErrorMessage from './common/ErrorMessage.vue';
-import { useConverterAvailable } from '@/composables/useConverterAvailable';
+import { useCurrencyRatesAvailable } from '@/composables/useCurrencyRatesAvailable';
 
-const { applyOfflineRates } = useConverterAvailable();
+const { applyOfflineRates } = useCurrencyRatesAvailable();
 
-const { fetchError } = useCurrencyConverter();
+const { fetchError } = useCurrencyRates();
 
 const error = computed(() => {
   if (applyOfflineRates.value) {

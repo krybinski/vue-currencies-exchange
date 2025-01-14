@@ -16,7 +16,7 @@ const { sourceCurrency, targetCurrency, sourceExchangeRate } = storeToRefs(curre
     <div class="text-sm text-gray-600 mt-4">
       <span>Effective Date</span>
     </div>
-    <div class="w-40 mx-auto">
+    <div class="w-44 mx-auto">
       <HistoricalInput />
     </div>
   </div>

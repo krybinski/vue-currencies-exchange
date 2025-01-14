@@ -1,11 +1,11 @@
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useCurrencyStore } from '@/stores/currency';
-import { useCurrencyConverter } from './useCurrencyConverter';
+import { useCurrencyRates } from './useCurrencyRates';
 
-export function useConverterAvailable() {
+export function useCurrencyRatesAvailable() {
   const currencyStore = useCurrencyStore();
-  const { fetchError } = useCurrencyConverter();
+  const { fetchError } = useCurrencyRates();
 
   const { ratesAvailable } = storeToRefs(currencyStore);
 

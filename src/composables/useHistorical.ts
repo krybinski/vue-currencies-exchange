@@ -9,13 +9,13 @@ export function useHistorical() {
   const currencyStore = useCurrencyStore();
   const { rates, effectiveDate } = storeToRefs(currencyStore);
 
+  const historicalDate = ref<Date>(new Date());
   const fetchError = ref<string | null>(null);
   const isLoading = ref(false);
-  const historicalDate = ref<Date>(new Date());
 
   async function fetchRatesByDate(date: string) {
     try {
-      fetchError.value = '';
+      fetchError.value = null;
       isLoading.value = true;
 
       const data = await currencyApi.getCurrentRatesByDate(date);

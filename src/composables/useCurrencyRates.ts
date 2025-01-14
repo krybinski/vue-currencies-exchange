@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import { getErrorMessage } from '@/utils/http.utils';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
 
-export function useCurrencyConverter() {
+export function useCurrencyRates() {
   const currencyStore = useCurrencyStore();
   const { rates, effectiveDate } = storeToRefs(currencyStore);
   const fetchError = ref<string | null>(null);
@@ -13,7 +13,7 @@ export function useCurrencyConverter() {
 
   async function fetchRates() {
     try {
-      fetchError.value = '';
+      fetchError.value = null;
       isLoading.value = true;
 
       const data = await currencyApi.getCurrentRates();
