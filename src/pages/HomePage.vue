@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import TheHeading from '@/components/common/TheHeading.vue';
 import CurrencyConverterContainer from '@/components/currencies/CurrencyConverterContainer.vue';
-import TheContainer from '@/layouts/TheContainer.vue';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
+import TheContainer from '@/components/common/TheContainer.vue';
 </script>
 
 <template>
-  <main class="w-full">
+  <DefaultLayout>
     <TheContainer>
       <TheHeading title="Currency Converter" center />
       <CurrencyConverterContainer />
     </TheContainer>
-  </main>
+  </DefaultLayout>
 </template>
