@@ -1,5 +1,5 @@
-import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
+import { computed } from 'vue';
 import { useCurrencyStore } from '@/stores/currency';
 import { useCurrencyRates } from './useCurrencyRates';
 

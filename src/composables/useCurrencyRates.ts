@@ -1,9 +1,9 @@
+import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import { currencyApi } from '@/api/services/currency';
-import { useCurrencyStore } from '@/stores/currency';
-import { storeToRefs } from 'pinia';
-import { getErrorMessage } from '@/utils/http.utils';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
+import { useCurrencyStore } from '@/stores/currency';
+import { getErrorMessage } from '@/utils/http.utils';
 
 export function useCurrencyRates() {
   const currencyStore = useCurrencyStore();

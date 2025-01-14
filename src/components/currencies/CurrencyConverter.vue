@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useCurrencyStore } from '@/stores/currency';
 import { storeToRefs } from 'pinia';
+import { useCurrencyStore } from '@/stores/currency';
 import CardDivided from '../common/CardDivided.vue';
 import TheInput from '../forms/TheInput.vue';
 import TheSelect from '../forms/TheSelect.vue';

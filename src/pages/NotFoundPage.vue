@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DefaultLayout from '@/layouts/DefaultLayout.vue';
 import { useRouter } from 'vue-router';
+import DefaultLayout from '@/layouts/DefaultLayout.vue';
 
 const router = useRouter();
 

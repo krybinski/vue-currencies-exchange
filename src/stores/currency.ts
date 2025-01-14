@@ -1,8 +1,8 @@
-import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
+import { ref, computed } from 'vue';
 import type { CurrencyRate } from '@/api/types/currency';
-import { formatMoney } from '@/utils/money.utils';
 import { DEFAULT_CURRENCY_CODE, DEFAULT_TARGET_CURRENCY_CODE } from '@/constants';
+import { formatMoney } from '@/utils/money.utils';
 
 export const useCurrencyStore = defineStore(
   'currency',
