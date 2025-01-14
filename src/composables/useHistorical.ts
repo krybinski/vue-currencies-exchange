@@ -1,6 +1,6 @@
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
-import { currencyApi } from '@/api/services/currency';
+import { currencyApi } from '@/api/services/currency.service';
 import { DEFAULT_CURRENCY_RATE } from '@/constants';
 import { useCurrencyStore } from '@/stores/currency';
 import { getErrorMessage } from '@/utils/http.utils';
