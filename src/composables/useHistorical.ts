@@ -1,10 +1,33 @@
 import { ref } from 'vue';
-import { useCurrencyConverter } from './useCurrencyConverter';
+import { currencyApi } from '@/api/services/currency';
+import { DEFAULT_CURRENCY_RATE } from '@/constants';
+import { getErrorMessage } from '@/utils/http.utils';
+import { useCurrencyStore } from '@/stores/currency';
+import { storeToRefs } from 'pinia';
 
 export function useHistorical() {
-  const { fetchRatesByDate } = useCurrencyConverter();
+  const currencyStore = useCurrencyStore();
+  const { rates, effectiveDate } = storeToRefs(currencyStore);
 
+  const fetchError = ref<string | null>(null);
+  const isLoading = ref(false);
   const historicalDate = ref<Date>(new Date());
+
+  async function fetchRatesByDate(date: string) {
+    try {
+      fetchError.value = '';
+      isLoading.value = true;
+
+      const data = await currencyApi.getCurrentRatesByDate(date);
+
+      rates.value = [...data.rates, DEFAULT_CURRENCY_RATE];
+      effectiveDate.value = data.effectiveDate;
+    } catch (e: unknown) {
+      fetchError.value = getErrorMessage(e);
+    } finally {
+      isLoading.value = false;
+    }
+  }
 
   function changeDate(date: Date) {
     const formattedDate = date.toISOString().split('T')[0];
