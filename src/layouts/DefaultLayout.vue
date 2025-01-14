@@ -3,6 +3,12 @@ interface Props {
   as?: string;
 }
 
+interface Slots {
+  default: () => void;
+}
+
+defineSlots<Slots>();
+
 const { as = 'div' } = defineProps<Props>();
 </script>
 

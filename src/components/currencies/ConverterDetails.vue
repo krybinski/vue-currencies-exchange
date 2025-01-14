@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { defineAsyncComponent } from 'vue';
 import { useCurrencyStore } from '@/stores/currency';
-import CurrencyHistoricalInput from './CurrencyHistoricalInput.vue';
+
+const CurrencyHistoricalInput = defineAsyncComponent(() => import('./CurrencyHistoricalInput.vue'));
 
 const currencyStore = useCurrencyStore();
 const { sourceCurrency, targetCurrency, sourceExchangeRate } = storeToRefs(currencyStore);

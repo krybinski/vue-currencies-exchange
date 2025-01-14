@@ -1,5 +1,13 @@
 <script setup lang="ts">
 import TheDivider from './TheDivider.vue';
+
+interface Slots {
+  top?: () => void;
+  divider?: () => void;
+  bottom?: () => void;
+}
+
+defineSlots<Slots>();
 </script>
 
 <template>
