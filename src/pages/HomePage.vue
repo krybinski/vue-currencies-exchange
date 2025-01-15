@@ -6,7 +6,7 @@ import DefaultLayout from '@/layouts/DefaultLayout.vue';
 </script>
 
 <template>
-  <DefaultLayout>
+  <DefaultLayout as="main">
     <TheContainer>
       <TheHeading title="Currency Converter" center />
       <CurrencyConverterContainer />
