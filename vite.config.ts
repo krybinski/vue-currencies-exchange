@@ -14,7 +14,12 @@ export default defineConfig({
       srcDir: 'src',
       filename: 'sw.js',
       registerType: 'autoUpdate',
-      injectRegister: false,
+      injectRegister: 'auto',
+      outDir: 'public',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,json}'],
+        cleanupOutdatedCaches: true,
+      },
 
       manifest: {
         name: 'Currency Converter',
