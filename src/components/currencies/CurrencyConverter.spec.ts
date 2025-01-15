@@ -10,12 +10,13 @@ import CurrencyConverter from './CurrencyConverter.vue';
 import CurrencySelect from './CurrencySelect.vue';
 
 vi.mock('../ConverterDetails.vue', async () => {
-  const actual = await vi.importActual('../ConverterDetails.vue');
+  const actual =
+    await vi.importActual<typeof import('./ConverterDetails.vue')>('./ConverterDetails.vue');
   return {
     default: {
       name: 'ConverterDetails',
       template: '<div>Converter Details</div>',
-      ...(actual as any)?.default,
+      ...actual?.default,
     },
   };
 });
