@@ -1,6 +1,7 @@
 import { createPinia } from 'pinia';
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';
 import { createApp } from 'vue';
+import '@vuepic/vue-datepicker/dist/main.css';
 import App from './App.vue';
 import './assets/main.css';
 import router from './router';
